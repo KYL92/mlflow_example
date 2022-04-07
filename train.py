@@ -163,10 +163,9 @@ def cli_main():
     cli = LightningCLI(
         ImageClassifier, MNISTDataModule, seed_everything_default=42, save_config_overwrite=True, run=False
     )
-    with mlflow.start_run():
-        mlflow.log_artifact(os.path.abspath(__file__), 'source code')
+    with mlflow.start_run():# run mlflow logger
+        mlflow.log_artifact(os.path.abspath(__file__), 'source code')# log .py file or other artifacts
         cli.trainer.fit(cli.model, datamodule=cli.datamodule)
-        
         cli.trainer.test(ckpt_path="best", datamodule=cli.datamodule)
 
 
